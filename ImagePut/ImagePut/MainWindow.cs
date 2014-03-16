@@ -79,10 +79,10 @@ namespace ImagePut
 
         private Boolean SetDefaultSource()
         {
-            txtHostName.Text = Properties.Settings.Default.HostName;
-            txtUserName.Text = Properties.Settings.Default.UserName;
-            txtPassword.Text = Properties.Settings.Default.Password;
-            txtFingerPrint.Text = Properties.Settings.Default.FingerPrint;
+            txtHostName.Text = Config.HostName;
+            txtUserName.Text = Config.UserName;
+            txtPassword.Text = Config.Password;
+            txtFingerPrint.Text = Config.FingerPrint;
             return true;
         }
 
@@ -97,7 +97,7 @@ namespace ImagePut
 
         private Boolean SetDefaultSFTP()
         {
-            txtSource.Text = Properties.Settings.Default.Source;
+            txtSource.Text = Config.Source;
             return true;
         }
 
@@ -226,38 +226,32 @@ namespace ImagePut
 
         private void txtSource_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Source = txtSource.Text;
-            Properties.Settings.Default.Save();
+            Config.Source = txtSource.Text;
         }
 
         private void txtDestination_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Destination = txtDestination.Text;
-            Properties.Settings.Default.Save();
+            Config.Destination = txtDestination.Text;
         }
 
         private void txtHostName_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.HostName = txtHostName.Text;
-            Properties.Settings.Default.Save();
+            Config.HostName = txtHostName.Text;
         }
 
         private void txtUserName_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.UserName = txtUserName.Text;
-            Properties.Settings.Default.Save();
+            Config.UserName = txtUserName.Text;
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Password = txtPassword.Text;
-            Properties.Settings.Default.Save();
+            Config.Password = txtPassword.Text;
         }
 
         private void txtFingerPrint_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.FingerPrint = txtFingerPrint.Text;
-            Properties.Settings.Default.Save();
+            Config.FingerPrint = txtFingerPrint.Text;
         }
     }
 }
