@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtOutput = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDestination = new System.Windows.Forms.TextBox();
@@ -44,7 +45,7 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtHostName = new System.Windows.Forms.TextBox();
-            this.txtOutput = new System.Windows.Forms.TextBox();
+            this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -78,6 +79,19 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "転送";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtOutput
+            // 
+            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOutput.Font = new System.Drawing.Font("ＭＳ ゴシック", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtOutput.Location = new System.Drawing.Point(8, 107);
+            this.txtOutput.Multiline = true;
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtOutput.Size = new System.Drawing.Size(583, 187);
+            this.txtOutput.TabIndex = 11;
             // 
             // label2
             // 
@@ -229,26 +243,20 @@
             this.txtHostName.TabIndex = 0;
             this.txtHostName.TextChanged += new System.EventHandler(this.txtHostName_TextChanged);
             // 
-            // txtOutput
+            // bgWorker
             // 
-            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutput.Font = new System.Drawing.Font("ＭＳ ゴシック", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtOutput.Location = new System.Drawing.Point(8, 107);
-            this.txtOutput.Multiline = true;
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutput.Size = new System.Drawing.Size(583, 187);
-            this.txtOutput.TabIndex = 11;
+            this.bgWorker.WorkerReportsProgress = true;
+            this.bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorker_DoWork);
+            this.bgWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgWorker_ProgressChanged);
+            this.bgWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWorker_RunWorkerCompleted);
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 349);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "ファイル転送";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -278,6 +286,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtFingerPrint;
         private System.Windows.Forms.TextBox txtOutput;
+        private System.ComponentModel.BackgroundWorker bgWorker;
 
     }
 }

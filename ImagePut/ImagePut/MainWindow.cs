@@ -57,6 +57,7 @@ namespace ImagePut
         // 転送
         private void btnTransfer_Click(object sender, EventArgs e)
         {
+            //bgWorker.RunWorkerAsync();
             Transfer();
         }
 
@@ -252,6 +253,21 @@ namespace ImagePut
         private void txtFingerPrint_TextChanged(object sender, EventArgs e)
         {
             Config.FingerPrint = txtFingerPrint.Text;
+        }
+
+        private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Transfer();
+        }
+
+        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
         }
     }
 }
