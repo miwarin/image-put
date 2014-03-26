@@ -45,7 +45,6 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtHostName = new System.Windows.Forms.TextBox();
-            this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -243,13 +242,6 @@
             this.txtHostName.TabIndex = 0;
             this.txtHostName.TextChanged += new System.EventHandler(this.txtHostName_TextChanged);
             // 
-            // bgWorker
-            // 
-            this.bgWorker.WorkerReportsProgress = true;
-            this.bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorker_DoWork);
-            this.bgWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgWorker_ProgressChanged);
-            this.bgWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWorker_RunWorkerCompleted);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -286,7 +278,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtFingerPrint;
         private System.Windows.Forms.TextBox txtOutput;
-        private System.ComponentModel.BackgroundWorker bgWorker;
 
     }
 }

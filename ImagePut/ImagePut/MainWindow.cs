@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace ImagePut
 {
@@ -54,28 +55,29 @@ namespace ImagePut
             txtOutput.AppendText(message + "\n");
         }
 
-        // 転送
-        private void btnTransfer_Click(object sender, EventArgs e)
+        private void SetClipboard(String text)
         {
-            //bgWorker.RunWorkerAsync();
-            Transfer();
+            Clipboard.SetDataObject(text, true);
         }
 
-        private void Transfer()
+        // 転送
+        private async void btnTransfer_Click(object sender, EventArgs e)
         {
-            try
+            var progress = new Progress<String>(Output);
+            var clipboard = new Progress<String>(SetClipboard);
+            await Transfer(progress, clipboard);
+        }
+
+        private async Task Transfer(IProgress<String> progress, IProgress<String> clipboard)
+        {
+            Task.Run(() =>
             {
                 ImageResize();
                 FilenameToLower();
-                Put();
+                Put(progress);
                 String tag = BuildTag();
-                SetClipboard(tag);
-            }
-            catch (Exception e)
-            {
-                txtOutput.AppendText(e.ToString());
-                Console.WriteLine("Error: {0}", e);
-            }
+                clipboard.Report(tag);
+            });
         }
 
         private Boolean SetDefaultSource()
@@ -146,7 +148,7 @@ namespace ImagePut
             return true;
         }
 
-        private Boolean Put()
+        private Boolean Put(IProgress<String> progress)
         {
             String hostname = txtHostName.Text;
             String username = txtUserName.Text;
@@ -156,7 +158,7 @@ namespace ImagePut
             String dst = txtDestination.Text;
 
             SCP scp = new SCP(hostname, username, password, finger);
-            scp.MessageHandler += (sender, e) => { Output(e.Message); };
+            scp.MessageHandler += (sender, e) => { progress.Report(e.Message); };
             scp.Put(src, dst);
             return true;
         }
@@ -181,12 +183,6 @@ namespace ImagePut
 
             String tag = sb.ToString();
             return tag;
-        }
-
-        private Boolean SetClipboard(String text)
-        {
-            Clipboard.SetDataObject(text, true);
-            return true;
         }
 
         private List<String> CollectFiles(String directory)
@@ -255,19 +251,5 @@ namespace ImagePut
             Config.FingerPrint = txtFingerPrint.Text;
         }
 
-        private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Transfer();
-        }
-
-        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-        }
-
-        private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-
-        }
     }
 }
