@@ -77,7 +77,6 @@ namespace ImagePut
                     foreach (TransferEventArgs transfer in transferResult.Transfers)
                     {
                         Console.WriteLine("Upload of {0} succeeded", transfer.FileName);
-                        OnMessage(String.Format("Upload of {0} succeeded", transfer.FileName));
                     }
                 }
 

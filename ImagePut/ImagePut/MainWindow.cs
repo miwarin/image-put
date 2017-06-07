@@ -70,14 +70,15 @@ namespace ImagePut
 
         private async Task Transfer(IProgress<String> progress, IProgress<String> clipboard)
         {
-            Task.Run(() =>
-            {
-                ImageResize();
-                FilenameToLower();
-                Put(progress);
-                String tag = BuildTag();
-                clipboard.Report(tag);
-            });
+            await Task.Run(() =>
+             {
+                 ImageResize();
+                 FilenameToLower();
+                 Put(progress);
+                 String tag = BuildTag();
+                 progress.Report(tag);
+                 //clipboard.Report(tag);
+             });
         }
 
         private Boolean SetDefaultSource()
